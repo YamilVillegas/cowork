@@ -1,57 +1,56 @@
 import React, { Component } from 'react';
+import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class Directory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            locations: [
-                {
-                    id: 0,
-                    name: 'New York Location',
-                    image: 'assets/images/NewYorkOffice.jpeg',
-                    rooms: 100,
-                    description: "Nestled in the foothills of the Chrome Mountains, this campground on the shores of the pristine React Lake is a favorite for fly fishers."
-                },
-                {
-                  id: 1,
-                  name: 'Chicago Location',
-                  image: 'assets/images/ChicagoOffice.jpeg',
-                  rooms: 75,
-                  description: "Spend a few sunny days and starry nights beneath a canopy of old-growth firs at this enchanting spot by the Chrome River."
-                },
-                {
-                    id: 2,
-                    name: 'California Location',
-                    image: 'assets/images/CaliforniaOffice.jpeg',
-                    rooms: 100,
-                    description: "Let NuCamp be your guide to this off-the-beaten-path, hike-in-only campground."
-                },
-                {
-                    id: 3,
-                    name: 'Florida Location',
-                    image: 'assets/images/FloridaOffice.jpeg',
-                    rooms: 75,
-                    description: "You'll never want to leave this hidden gem, deep within the lush Redux Woods."
-                }
-            ],
+            selectedLocation: null
         }
     }
 
-    render() {
-        const directory = this.state.locations.map(location => {
+    onLocationSelect(location) {
+        this.setState({selectedLocation: location});
+    }
+
+    renderSelectedLocation(location) {
+        if(location) {
             return (
-                <div key={location.id} className='col'>
-                    <img src={location.image} alt={location.name} />
-                    <h2>{location.name}</h2>
-                    <p>{location.description}</p>
+                <Card>
+                    <CardImg top src={location.image} alt={location.name}/>
+                    <CardBody>
+                        <CardTitle>{location.name}</CardTitle>
+                        <CardText>{location.description}</CardText>
+                    </CardBody>
+                </Card>
+            );
+        }
+        return <div />
+    }
+
+    render() {
+        const directory = this.props.locations.map(location => {
+            return (
+                <div key={location.id} className='col-md-5 m-1'>
+                    <Card onClick={() => this.onLocationSelect(location)}>
+                        <CardImg width="100%" src={location.image} alt={location.name} />
+                        <CardImgOverlay>
+                            <CardTitle>{location.name}</CardTitle>
+                        </CardImgOverlay>
+                    </Card>
                 </div>
-            )
-        })
+            );
+        });
 
         return(
             <div className='container'>
                 <div className='row'>
                     {directory}
+                </div>
+                <div className='row'>
+                    <div className='col-md-5 m-1'>
+                        {this.renderSelectedLocation(this.state.selectedLocation)}
+                    </div>
                 </div>
             </div>
         );
