@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
+import LocationInfo from './LocationInfo';
 
 class Directory extends Component {
     constructor(props) {
@@ -11,21 +12,6 @@ class Directory extends Component {
 
     onLocationSelect(location) {
         this.setState({selectedLocation: location});
-    }
-
-    renderSelectedLocation(location) {
-        if(location) {
-            return (
-                <Card>
-                    <CardImg top src={location.image} alt={location.name}/>
-                    <CardBody>
-                        <CardTitle>{location.name}</CardTitle>
-                        <CardText>{location.description}</CardText>
-                    </CardBody>
-                </Card>
-            );
-        }
-        return <div />
     }
 
     render() {
@@ -48,9 +34,7 @@ class Directory extends Component {
                     {directory}
                 </div>
                 <div className='row'>
-                    <div className='col-md-5 m-1'>
-                        {this.renderSelectedLocation(this.state.selectedLocation)}
-                    </div>
+                    <LocationInfo location={this.state.selectedLocation}/>
                 </div>
             </div>
         );
