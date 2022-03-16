@@ -45,12 +45,7 @@ class LocationInfo extends Component {
                 </div>
             )
         } 
-        return (
-            <div>
-                <Card onClick={() => this.renderComments(this.props.comment)}>
-                </Card>
-            </div>
-        )
+        return <div />
         }
     }
 
