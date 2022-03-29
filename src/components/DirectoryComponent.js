@@ -1,29 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 
-class Directory extends Component {
-    render() {
-        const directory = this.props.locations.map(location => {
-            return (
-                <div key={location.id} className='col-md-5 m-1'>
-                    <Card onClick={() => this.props.onClick(location.id)}>
-                        <CardImg width="100%" src={location.image} alt={location.name} />
-                        <CardImgOverlay>
-                            <CardTitle>{location.name}</CardTitle>
-                        </CardImgOverlay>
-                    </Card>
-                </div>
-            );
-        });
+function RenderDirectoryItem({ location, onClick}) {
+  return (
+    <Card onClick={() => onClick(location.id)}>
+        <CardImg width="100%" src={location.image} alt={location.name} />
+        <CardImgOverlay>
+            <CardTitle>{location.name}</CardTitle>
+        </CardImgOverlay>
+    </Card>
+  );
+}
 
-        return(
-            <div className='container'>
-                <div className='row'>
-                    {directory}
-                </div>
-            </div>
-        );
-    }
+function Directory(props) {
+  const directory = props.locations.map((location) => {
+    return (
+      <div key={location.id} className="col-12 col-md-5 m-1">
+        <RenderDirectoryItem location={location} onClick={props.onClick} />
+      </div>
+    );
+  });
+
+  return (
+    <div className="container">
+      <div className="row">
+        {directory}
+      </div>
+    </div>
+  );
 }
 
 export default Directory;

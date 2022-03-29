@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
-class LocationInfo extends Component {
-    renderLocation(location) {
+function RenderLocation({location}) {
         return (
             <div className='col-md-5 m-1'>
                 <Card>
@@ -16,7 +15,7 @@ class LocationInfo extends Component {
         )
     }
 
-    renderComments(comments) {
+function RenderComments({comments}) {
         if(comments) {
             return (
                 <div className='col-md-5 m-1'>
@@ -36,19 +35,18 @@ class LocationInfo extends Component {
         return <div />
     }
 
-    render() {
-        if(this.props.location) {
-            return(
-                <div className='container'>
-                    <div className='row'>
-                        {this.renderLocation(this.props.location)}
-                        {this.renderComments(this.props.location.comments)}
-                    </div>
+function LocationInfo(props) {
+    if(props.location) {
+        return(
+            <div className='container'>
+                <div className='row'>
+                    <RenderLocation location={props.location} />
+                    <RenderComments comments={props.location.comments} />
                 </div>
-            )
-        } 
-        return <div />
-    }
+            </div>
+        )
+    } 
+    return <div />
 }
 
 export default LocationInfo;
